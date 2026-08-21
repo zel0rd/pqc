@@ -1,0 +1,67 @@
+rules:
+  - id: c-openssl-md5
+    message: "OpenSSL MD5 API detected."
+    severity: WARNING
+    languages: [c]
+    pattern-either:
+      - pattern: MD5(...)
+      - pattern: MD5_Init(...)
+
+  - id: c-openssl-sha1
+    message: "OpenSSL SHA-1 API detected."
+    severity: WARNING
+    languages: [c]
+    pattern-either:
+      - pattern: SHA1(...)
+      - pattern: SHA1_Init(...)
+
+  - id: c-openssl-aes-ecb
+    message: "OpenSSL AES ECB mode detected."
+    severity: ERROR
+    languages: [c]
+    pattern-either:
+      - pattern: EVP_aes_128_ecb()
+      - pattern: EVP_aes_192_ecb()
+      - pattern: EVP_aes_256_ecb()
+
+  - id: c-openssl-rsa-keygen
+    message: "OpenSSL RSA key generation detected. Register as PQC migration target."
+    severity: INFO
+    languages: [c]
+    pattern: RSA_generate_key_ex(...)
+
+  - id: c-openssl-ec-p256
+    message: "OpenSSL P-256 EC key usage detected. Register as PQC migration target."
+    severity: INFO
+    languages: [c]
+    pattern: EC_KEY_new_by_curve_name(NID_X9_62_prime256v1)
+
+  - id: c-p256-param-prime
+    message: "P-256 field prime constant detected. Possible ECC implementation."
+    severity: INFO
+    languages: [generic]
+    pattern-regex: "FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF"
+
+  - id: c-rsa-public-exponent
+    message: "RSA public exponent 65537 detected. Confirm RSA context."
+    severity: INFO
+    languages: [generic]
+    pattern-regex: "RSA_F4|010001|65537"
+
+  - id: c-aes-key-length-evp
+    message: "AES key length can be inferred from OpenSSL EVP_aes_<bits>_<mode>() function."
+    severity: INFO
+    languages: [generic]
+    pattern-regex: "EVP_aes_(128|192|256)_[a-z0-9]+"
+
+  - id: c-rsa-key-length-arg
+    message: "RSA key length can be inferred from RSA_generate_key_ex(..., bits, ...)."
+    severity: INFO
+    languages: [generic]
+    pattern-regex: "RSA_generate_key_ex\\s*\\([^,]+,\\s*(1024|2048|3072|4096)\\s*,"
+
+  - id: c-ecc-key-length-nid
+    message: "ECC key length can be inferred from OpenSSL curve NID."
+    severity: INFO
+    languages: [generic]
+    pattern-regex: "NID_(X9_62_prime256v1|secp256r1|secp384r1|secp521r1|secp256k1)"

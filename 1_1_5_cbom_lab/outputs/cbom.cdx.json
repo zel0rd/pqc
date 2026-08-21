@@ -1,0 +1,507 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:11111111-2222-3333-4444-555555555555",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-07-02T14:12:18+00:00",
+    "component": {
+      "type": "application",
+      "bom-ref": "app:user-auth-api",
+      "name": "user-auth-api",
+      "version": "1.0.0"
+    },
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-lab-java-scanner",
+          "version": "0.1.0"
+        }
+      ]
+    }
+  },
+  "services": [
+    {
+      "bom-ref": "service:user-auth-api:https",
+      "name": "user-auth-api HTTPS endpoint",
+      "endpoints": [
+        "https://auth.example.com"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "security:exposure",
+          "value": "internet-facing"
+        },
+        {
+          "name": "security:data-lifetime",
+          "value": "long"
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:rsa-2048:com-example-cbom-authservice.java:8",
+      "name": "RSA-2048",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "public-key",
+          "algorithmFamily": "RSA",
+          "parameterSetIdentifier": "2048"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/AuthService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "8"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "KeyPairGenerator.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "RSA"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "migrate"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:rsa-pkcs1-v1_5-sha-256:com-example-cbom-authservice.java:14",
+      "name": "RSA-PKCS1-v1_5-SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "algorithmFamily": "RSASSA-PKCS1-v1_5",
+          "parameterSetIdentifier": "2048?"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/AuthService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "14"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "Signature.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "SHA256withRSA"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "migrate"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:ec-secp256r1:com-example-cbom-authservice.java:21",
+      "name": "EC-secp256r1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "public-key",
+          "algorithmFamily": "EC",
+          "parameterSetIdentifier": "secp256r1"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/AuthService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "21"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "KeyPairGenerator.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "EC"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "migrate"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:aes:com-example-cbom-cryptoservice.java:15",
+      "name": "AES",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "block-cipher",
+          "algorithmFamily": "AES",
+          "parameterSetIdentifier": "unknown"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/CryptoService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "15"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "KeyGenerator.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "AES"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "review"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:aes-256-gcm:com-example-cbom-cryptoservice.java:22",
+      "name": "AES-256-GCM",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "authenticated-encryption",
+          "algorithmFamily": "AES",
+          "parameterSetIdentifier": "256"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/CryptoService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "22"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "Cipher.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "AES/GCM/NoPadding"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "allowed"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:sha-1:com-example-cbom-cryptoservice.java:30",
+      "name": "SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "algorithmFamily": "SHA1",
+          "parameterSetIdentifier": "160"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/CryptoService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "30"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "MessageDigest.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "SHA-1"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "prohibited"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:hmac-sha-256:com-example-cbom-cryptoservice.java:35",
+      "name": "HMAC-SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "algorithmFamily": "HMAC",
+          "parameterSetIdentifier": "SHA-256"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/CryptoService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "35"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "Mac.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "HmacSHA256"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "allowed"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:pbkdf2-hmac-sha-256:com-example-cbom-passwordservice.java:12",
+      "name": "PBKDF2-HMAC-SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kdf",
+          "algorithmFamily": "PBKDF2",
+          "parameterSetIdentifier": "HMAC-SHA-256"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/PasswordService.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "12"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "SecretKeyFactory.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "PBKDF2WithHmacSHA256"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "review-parameters"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:tls-1.2:com-example-cbom-tlsconfig.java:9",
+      "name": "TLS 1.2",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls",
+          "version": "1.2"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/TlsConfig.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "9"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "SSLContext.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "TLSv1.2"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "review"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "depends-on-cipher-suite"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto:pkcssharp12-keystore:com-example-cbom-tlsconfig.java:15",
+      "name": "PKCS#12 Keystore",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "keystore",
+          "algorithmRef": "unknown"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbomlab:detected-by",
+          "value": "java-static-analysis"
+        },
+        {
+          "name": "cbomlab:source-file",
+          "value": "com/example/cbom/TlsConfig.java"
+        },
+        {
+          "name": "cbomlab:source-line",
+          "value": "15"
+        },
+        {
+          "name": "cbomlab:raw-api",
+          "value": "KeyStore.getInstance"
+        },
+        {
+          "name": "cbomlab:raw-value",
+          "value": "PKCS12"
+        },
+        {
+          "name": "security:policy-status",
+          "value": "allowed"
+        },
+        {
+          "name": "security:quantum-vulnerable",
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app:user-auth-api",
+      "dependsOn": [
+        "crypto:rsa-2048:com-example-cbom-authservice.java:8",
+        "crypto:rsa-pkcs1-v1_5-sha-256:com-example-cbom-authservice.java:14",
+        "crypto:ec-secp256r1:com-example-cbom-authservice.java:21",
+        "crypto:aes:com-example-cbom-cryptoservice.java:15",
+        "crypto:aes-256-gcm:com-example-cbom-cryptoservice.java:22",
+        "crypto:sha-1:com-example-cbom-cryptoservice.java:30",
+        "crypto:hmac-sha-256:com-example-cbom-cryptoservice.java:35",
+        "crypto:pbkdf2-hmac-sha-256:com-example-cbom-passwordservice.java:12",
+        "crypto:tls-1.2:com-example-cbom-tlsconfig.java:9",
+        "crypto:pkcssharp12-keystore:com-example-cbom-tlsconfig.java:15"
+      ]
+    },
+    {
+      "ref": "service:user-auth-api:https",
+      "dependsOn": [
+        "crypto:rsa-2048:com-example-cbom-authservice.java:8",
+        "crypto:rsa-pkcs1-v1_5-sha-256:com-example-cbom-authservice.java:14",
+        "crypto:ec-secp256r1:com-example-cbom-authservice.java:21",
+        "crypto:aes:com-example-cbom-cryptoservice.java:15",
+        "crypto:aes-256-gcm:com-example-cbom-cryptoservice.java:22",
+        "crypto:sha-1:com-example-cbom-cryptoservice.java:30",
+        "crypto:hmac-sha-256:com-example-cbom-cryptoservice.java:35",
+        "crypto:pbkdf2-hmac-sha-256:com-example-cbom-passwordservice.java:12",
+        "crypto:tls-1.2:com-example-cbom-tlsconfig.java:9",
+        "crypto:pkcssharp12-keystore:com-example-cbom-tlsconfig.java:15"
+      ]
+    }
+  ]
+}

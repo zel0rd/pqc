@@ -1,0 +1,14 @@
+{
+  "name": "pqclean_easy_lab",
+  "default_kems": [
+    "ml-kem-512",
+    "ml-kem-768",
+    "ml-kem-1024"
+  ],
+  "default_signatures": [
+    "ml-dsa-44",
+    "ml-dsa-65",
+    "ml-dsa-87"
+  ],
+  "platform": "Ubuntu x86-64"
+}

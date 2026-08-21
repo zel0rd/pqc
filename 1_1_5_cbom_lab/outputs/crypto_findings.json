@@ -1,0 +1,122 @@
+[
+  {
+    "name": "RSA-2048",
+    "primitive": "public-key",
+    "family": "RSA",
+    "parameter": "2048",
+    "quantum": true,
+    "policy": "migrate",
+    "raw": "RSA",
+    "api": "KeyPairGenerator.getInstance",
+    "file": "com/example/cbom/AuthService.java",
+    "line": 8
+  },
+  {
+    "name": "RSA-PKCS1-v1_5-SHA-256",
+    "primitive": "signature",
+    "family": "RSASSA-PKCS1-v1_5",
+    "parameter": "2048?",
+    "quantum": true,
+    "policy": "migrate",
+    "raw": "SHA256withRSA",
+    "api": "Signature.getInstance",
+    "file": "com/example/cbom/AuthService.java",
+    "line": 14
+  },
+  {
+    "name": "EC-secp256r1",
+    "primitive": "public-key",
+    "family": "EC",
+    "parameter": "secp256r1",
+    "quantum": true,
+    "policy": "migrate",
+    "raw": "EC",
+    "api": "KeyPairGenerator.getInstance",
+    "file": "com/example/cbom/AuthService.java",
+    "line": 21
+  },
+  {
+    "name": "AES",
+    "primitive": "block-cipher",
+    "family": "AES",
+    "parameter": "unknown",
+    "quantum": false,
+    "policy": "review",
+    "raw": "AES",
+    "api": "KeyGenerator.getInstance",
+    "file": "com/example/cbom/CryptoService.java",
+    "line": 15
+  },
+  {
+    "name": "AES-256-GCM",
+    "primitive": "authenticated-encryption",
+    "family": "AES",
+    "parameter": "256",
+    "quantum": false,
+    "policy": "allowed",
+    "raw": "AES/GCM/NoPadding",
+    "api": "Cipher.getInstance",
+    "file": "com/example/cbom/CryptoService.java",
+    "line": 22
+  },
+  {
+    "name": "SHA-1",
+    "primitive": "hash",
+    "family": "SHA1",
+    "parameter": "160",
+    "quantum": false,
+    "policy": "prohibited",
+    "raw": "SHA-1",
+    "api": "MessageDigest.getInstance",
+    "file": "com/example/cbom/CryptoService.java",
+    "line": 30
+  },
+  {
+    "name": "HMAC-SHA-256",
+    "primitive": "mac",
+    "family": "HMAC",
+    "parameter": "SHA-256",
+    "quantum": false,
+    "policy": "allowed",
+    "raw": "HmacSHA256",
+    "api": "Mac.getInstance",
+    "file": "com/example/cbom/CryptoService.java",
+    "line": 35
+  },
+  {
+    "name": "PBKDF2-HMAC-SHA-256",
+    "primitive": "kdf",
+    "family": "PBKDF2",
+    "parameter": "HMAC-SHA-256",
+    "quantum": false,
+    "policy": "review-parameters",
+    "raw": "PBKDF2WithHmacSHA256",
+    "api": "SecretKeyFactory.getInstance",
+    "file": "com/example/cbom/PasswordService.java",
+    "line": 12
+  },
+  {
+    "name": "TLS 1.2",
+    "primitive": "protocol",
+    "family": "TLS",
+    "parameter": "1.2",
+    "quantum": "depends-on-cipher-suite",
+    "policy": "review",
+    "raw": "TLSv1.2",
+    "api": "SSLContext.getInstance",
+    "file": "com/example/cbom/TlsConfig.java",
+    "line": 9
+  },
+  {
+    "name": "PKCS#12 Keystore",
+    "primitive": "keystore",
+    "family": "PKCS12",
+    "parameter": "n/a",
+    "quantum": false,
+    "policy": "allowed",
+    "raw": "PKCS12",
+    "api": "KeyStore.getInstance",
+    "file": "com/example/cbom/TlsConfig.java",
+    "line": 15
+  }
+]

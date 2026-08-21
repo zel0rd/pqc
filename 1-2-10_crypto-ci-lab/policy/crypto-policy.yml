@@ -1,0 +1,81 @@
+version: "1.0"
+
+scan_extensions:
+  - ".c"
+  - ".h"
+  - ".java"
+  - ".py"
+
+exclude_paths:
+  - ".git"
+  - ".github"
+  - "tools"
+  - "policy"
+  - "reports"
+
+rules:
+  - id: CRYPTO-001
+    name: MD5
+    severity: critical
+    category: prohibited
+    message: "MD5 is prohibited because it is vulnerable to collision attacks."
+    recommendation: "Use SHA-256 or SHA-3."
+    patterns:
+      - "\\bMD5_Init\\s*\\("
+      - "\\bMD5_Update\\s*\\("
+      - "\\bEVP_md5\\s*\\("
+      - "MessageDigest\\.getInstance\\s*\\(\\s*[\"']MD5[\"']"
+
+  - id: CRYPTO-002
+    name: SHA-1
+    severity: high
+    category: prohibited
+    message: "SHA-1 is prohibited because it is vulnerable to collision attacks."
+    recommendation: "Use SHA-256 or SHA-3."
+    patterns:
+      - "\\bSHA1_Init\\s*\\("
+      - "\\bEVP_sha1\\s*\\("
+      - "MessageDigest\\.getInstance\\s*\\(\\s*[\"']SHA-?1[\"']"
+
+  - id: CRYPTO-003
+    name: DES or ECB mode
+    severity: high
+    category: prohibited
+    message: "DES and ECB mode are prohibited."
+    recommendation: "Use AES-GCM."
+    patterns:
+      - "Cipher\\.getInstance\\s*\\(\\s*[\"']DES"
+      - "AES/ECB"
+      - "DES/ECB"
+      - "\\bEVP_des_"
+
+  - id: CRYPTO-004
+    name: RSA 1024
+    severity: high
+    category: prohibited
+    message: "RSA 1024-bit keys are too small."
+    recommendation: "Use stronger keys or define a PQC migration plan."
+    patterns:
+      - "RSA_generate_key_ex\\s*\\([^;]*1024"
+      - "initialize\\s*\\(\\s*1024\\s*\\)"
+
+  - id: CRYPTO-005
+    name: RSA usage
+    severity: medium
+    category: quantum-vulnerable
+    message: "RSA is quantum-vulnerable and should be inventoried for PQC migration."
+    recommendation: "Register this usage in CBOM and plan migration to PQC or hybrid cryptography."
+    patterns:
+      - "\\bRSA_new\\s*\\("
+      - "KeyPairGenerator\\.getInstance\\s*\\(\\s*[\"']RSA[\"']"
+
+  - id: CRYPTO-006
+    name: ECC usage
+    severity: medium
+    category: quantum-vulnerable
+    message: "ECC is quantum-vulnerable and should be inventoried for PQC migration."
+    recommendation: "Consider PQC or hybrid TLS/signature migration."
+    patterns:
+      - "EC_KEY_new_by_curve_name\\s*\\("
+      - "prime256v1"
+      - "secp256r1"

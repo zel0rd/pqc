@@ -1,0 +1,62 @@
+name: Crypto Policy Scan
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  crypto-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run crypto policy scanner
+        id: crypto_scan
+        continue-on-error: true
+        run: |
+          python tools/crypto_scan.py \
+            --root . \
+            --policy policy/crypto-policy.yml \
+            --json-report reports/crypto-report.json \
+            --markdown-report reports/crypto-report.md \
+            --fail-on high
+
+      - name: Publish scan summary
+        if: always()
+        run: |
+          echo "## Crypto Policy Scan" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          cat reports/crypto-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crypto-scan-report
+          path: |
+            reports/crypto-report.json
+            reports/crypto-report.md
+          retention-days: 7
+
+      - name: Enforce crypto policy
+        if: steps.crypto_scan.outcome == 'failure'
+        run: |
+          echo "Crypto policy violations were detected."
+          exit 1
